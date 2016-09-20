@@ -1,7 +1,6 @@
 'use strict';
 
 // node modules
-const fs = require('fs');
 const http = require('http');
 const url = require('url');
 const queryString = require('querystring');
@@ -22,20 +21,30 @@ const server = http.createServer(function(req, res){
   console.log('req.url', req.url);
   console.log('req.method', req.method);
   console.log('req.headers', req.headers);
+  console.log('req.url.query', req.url.query);
 
-  res.write(cowsay.say({text: 'hello there'}));
-  res.end();
-  // return;
+  if (req.url.pathname === '/'){
+    //TODO: hello world reply
+    console.log('stufffff');
+  }
 
-  if (req.method === 'POST') {
-    parseBody(req, function(err){
+  if (req.method === 'GET' && req.url.pathname === '/cowsay'){
+    //TODO:  if (text is ermpty, send back a 400 error)
+    res.writeHead(200, {
+      'Content-Type': 'text/plain'});
+    res.write(cowsay.say(req.url.query));
+    res.end();
+    return;
+  }
+
+  if (req.method === 'POST' && req.url.pathname === '/cowsay') {
+    parseBody(req, function(err, body){
       if (err) return console.error(err);
+      res.write(cowsay.say(body));
+      res.end();
     });
+    return;
   }
-  if (req.method === 'GET' && req.url.pathname === '/home'){
-    fs.createReadStream('./server.js').pipe(res);
-  }
-
   res.statusCode = 404;
   res.write('too bad');
   res.end();
