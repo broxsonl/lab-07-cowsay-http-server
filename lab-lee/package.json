@@ -1,0 +1,31 @@
+{
+  "name": "lab-07-cowsay-http-server",
+  "version": "1.0.0",
+  "description": "![cf](https://i.imgur.com/7v5ASc8.png) lab-07-cowsay-http-server ======",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codefellows-seattle-javascript-401d10/lab-07-cowsay-http-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codefellows-seattle-javascript-401d10/lab-07-cowsay-http-server/issues"
+  },
+  "homepage": "https://github.com/codefellows-seattle-javascript-401d10/lab-07-cowsay-http-server#readme",
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-mocha": "^3.0.1",
+    "mocha": "^3.0.2",
+    "mocha-eslint": "^3.0.1"
+  },
+  "dependencies": {
+    "cowsay": "^1.1.8"
+  }
+}
