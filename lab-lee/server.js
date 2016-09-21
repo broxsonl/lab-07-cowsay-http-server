@@ -61,7 +61,7 @@ const server = http.createServer(function(req, res){
       res.writeHead(400, {
         'Content-Type': 'text/plain',
       });
-      res.write(cowsay.say({text: 'bad request\ntry: localhost:3000/cowsay?text=howdy'}));
+      res.write(cowsay.say({text: 'bad request\ntry: cat data.json | http post localhost:3000/cowsay'}));
       res.end();
       return;
     }
