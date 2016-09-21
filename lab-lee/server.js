@@ -49,6 +49,9 @@ const server = http.createServer(function(req, res){
     if (req.url.query.text || req.url.query) {
       parseBody(req, function(err, body){
         if (err) return console.error(err);
+        res.writeHead(200, {
+          'Content-Type': 'text/plain',
+        });
         res.write(cowsay.say(body));
         res.end();
       });
@@ -56,7 +59,8 @@ const server = http.createServer(function(req, res){
     }
     else {
       res.writeHead(400, {
-        'Content-Type': 'text/plain'});
+        'Content-Type': 'text/plain',
+      });
       res.write(cowsay.say({text: 'bad request\ntry: localhost:3000/cowsay?text=howdy'}));
       res.end();
       return;
