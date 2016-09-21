@@ -24,26 +24,47 @@ const server = http.createServer(function(req, res){
   console.log('req.url.query', req.url.query);
 
   if (req.url.pathname === '/'){
-    //TODO: hello world reply
-    console.log('stufffff');
+    res.writeHead(200, {
+      'Content-Type': 'text/plain'});
+    res.write('hello world');
+    res.end();
+    return;
   }
 
   if (req.method === 'GET' && req.url.pathname === '/cowsay'){
-    //TODO:  if (text is ermpty, send back a 400 error)
+    if (!req.url.query.text) {
+      res.writeHead(400, {
+        'Content-Type': 'text/plain'});
+      res.write(cowsay.say({text: 'bad request\ntry: localhost:3000/cowsay?text=howdy'}));
+      return res.end();
+    }
+
     res.writeHead(200, {
       'Content-Type': 'text/plain'});
     res.write(cowsay.say(req.url.query));
     res.end();
     return;
   }
-
   if (req.method === 'POST' && req.url.pathname === '/cowsay') {
-    parseBody(req, function(err, body){
-      if (err) return console.error(err);
-      res.write(cowsay.say(body));
+    if (req.url.query.text || req.url.query) {
+      parseBody(req, function(err, body){
+        if (err) return console.error(err);
+        res.writeHead(200, {
+          'Content-Type': 'text/plain',
+        });
+        res.write(cowsay.say(body));
+        res.end();
+      });
+      return;
+    }
+    else {
+      res.writeHead(400, {
+        'Content-Type': 'text/plain',
+      });
+      res.write(cowsay.say({text: 'bad request\ntry: localhost:3000/cowsay?text=howdy'}));
       res.end();
-    });
-    return;
+      return;
+    }
   }
   res.statusCode = 404;
   res.write('too bad');
