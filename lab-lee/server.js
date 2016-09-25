@@ -18,10 +18,6 @@ const PORT = process.env.PORT || 3000;
 const server = http.createServer(function(req, res){
   req.url = url.parse(req.url);
   req.url.query = queryString.parse(req.url.query);
-  console.log('req.url', req.url);
-  console.log('req.method', req.method);
-  console.log('req.headers', req.headers);
-  console.log('req.url.query', req.url.query);
 
   if (req.url.pathname === '/'){
     res.writeHead(200, {
