@@ -23,8 +23,7 @@ const server = http.createServer(function(req, res){
     res.writeHead(200, {
       'Content-Type': 'text/plain'});
     res.write('hello world');
-    res.end();
-    return;
+    return res.end();
   }
 
   if (req.method === 'GET' && req.url.pathname === '/cowsay'){
@@ -38,8 +37,7 @@ const server = http.createServer(function(req, res){
     res.writeHead(200, {
       'Content-Type': 'text/plain'});
     res.write(cowsay.say(req.url.query));
-    res.end();
-    return;
+    return res.end();
   }
   if (req.method === 'POST' && req.url.pathname === '/cowsay') {
     if (req.url.query.text || req.url.query) {
@@ -58,8 +56,7 @@ const server = http.createServer(function(req, res){
         'Content-Type': 'text/plain',
       });
       res.write(cowsay.say({text: 'bad request\ntry: cat data.json | http post localhost:3000/cowsay'}));
-      res.end();
-      return;
+      return res.end();
     }
   }
   res.statusCode = 404;
